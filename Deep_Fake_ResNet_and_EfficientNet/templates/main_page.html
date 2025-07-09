@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Fake Webpage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Menu Bar */
+        .menu-bar {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            list-style: none;
+        }
+
+        .menu-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+        .menu-bar a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+
+        /* Main slider */
+        .main-slider {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .slider-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-images img {
+            width: 100%;
+            height: 400px;
+        }
+
+        .main-slider-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .main-slider-buttons span {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* 4 Image Slider */
+        .image-slider {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .image-slider .slider-content {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-slider .slider-content img {
+            width: 25%;
+            height: 200px;
+        }
+
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .slider-arrows span {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Two Boxes with Button */
+        .boxes-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .outer-box {
+            width: 300px;
+            height: 200px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner-box {
+            width: 200px;
+            height: 100px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner-box button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .inner-box button:hover {
+            background-color: #575757;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Bar -->
+    <ul class="menu-bar">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <!-- Main Slider with 3 Images -->
+    <div class="main-slider">
+        <div class="slider-images" id="mainSliderImages">
+            <img src="{{ url_for('static', filename='images/sm1.png') }}" alt="Slide 1">
+            <img src="{{ url_for('static', filename='images/sm2.png') }}" alt="Slide 2">
+            <img src="{{ url_for('static', filename='images/sm3.png') }}" alt="Slide 3">
+             
+        </div>
+        <div class="main-slider-buttons">
+            <span id="mainPrev">&#10094;</span>
+            <span id="mainNext">&#10095;</span>
+        </div>
+    </div>
+
+    <!-- Image Slider with 4 Images -->
+    <div class="image-slider">
+        <div class="slider-content" id="imageSliderContent">
+            <img src="{{ url_for('static', filename='images/model_accuracy.png') }}" alt="Image 1">
+            <img src="{{ url_for('static', filename='images/model_loss.png') }}" alt="Image 2">
+            <img src="{{ url_for('static', filename='images/model_classification_report.png') }}" alt="Image 3">      
+        </div>
+        <div class="slider-arrows">
+            <span id="imagePrev">&#10094;</span>
+            <span id="imageNext">&#10095;</span>
+        </div>
+    </div>
+
+    <!-- Two Boxes with Button -->
+<div class="boxes-section">
+
+
+        <div class="outer-box">
+        
+        <div class="inner-box">
+            <form action="{{ url_for('index2') }}" method="GET">
+                <button type="submit">Click Here to Detect Fake Image</button>
+            </form>
+        </div>
+    </div>
+    <div class="outer-box">
+
+        <div class="inner-box">
+            <form action="{{ url_for('index2') }}" method="GET">
+                <button type="submit">Click Here to Detect Fake Video</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Deep Fake Website. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Sliders -->
+    <script>
+        // Main Slider Logic
+        let mainSliderIndex = 0;
+        const mainSliderImages = document.getElementById('mainSliderImages');
+        const mainSliderImagesCount = mainSliderImages.children.length;
+
+        document.getElementById('mainNext').onclick = () => {
+            mainSliderIndex = (mainSliderIndex + 1) % mainSliderImagesCount;
+            mainSliderImages.style.transform = `translateX(${-mainSliderIndex * 100}%)`;
+        };
+
+        document.getElementById('mainPrev').onclick = () => {
+            mainSliderIndex = (mainSliderIndex - 1 + mainSliderImagesCount) % mainSliderImagesCount;
+            mainSliderImages.style.transform = `translateX(${-mainSliderIndex * 100}%)`;
+        };
+
+        // Image Slider Logic
+        let imageSliderIndex = 0;
+        const imageSliderContent = document.getElementById('imageSliderContent');
+        const imageSliderImagesCount = imageSliderContent.children.length;
+
+        document.getElementById('imageNext').onclick = () => {
+            imageSliderIndex = (imageSliderIndex + 1) % imageSliderImagesCount;
+            imageSliderContent.style.transform = `translateX(${-imageSliderIndex * 25}%)`;
+        };
+
+        document.getElementById('imagePrev').onclick = () => {
+            imageSliderIndex = (imageSliderIndex - 1 + imageSliderImagesCount) % imageSliderImagesCount;
+            imageSliderContent.style.transform = `translateX(${-imageSliderIndex * 25}%)`;
+        };
+    </script>
+
+</body>
+</html>

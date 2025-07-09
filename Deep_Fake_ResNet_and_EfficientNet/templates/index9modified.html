@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+  <title>Deepfake Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 50px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 1s ease-in-out;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      color: #00e5ff;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+      background-color: #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #00e5ff;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .about {
+      max-width: 700px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      color: #ccc;
+      font-size: 1em;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .about h2 {
+      color: #00e5ff;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container, .about {
+        padding: 25px;
+      }
+
+      .btn {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Deepfake Detection</h1>
+    <form action="{{ url_for('index3') }}" method="GET">
+      <button type="submit" class="btn">Detect from Image</button>
+    </form>
+    <form action="{{ url_for('index2') }}" method="GET">
+      <button type="submit" class="btn">Detect from Video</button>
+    </form>
+  </div>
+
+  <div class="about">
+    <h2>About the Project</h2>
+    <p>
+      This Deepfake Detection tool uses an ensemble of advanced deep learning models — ResNet50 and EfficientNetB0 — to analyze facial features in images and videos.
+      By processing individual frames and detecting patterns commonly found in AI-generated content, this system classifies faces as either <strong>Real</strong> or <strong>Fake</strong>.
+    </p>
+    <p>
+      The aim is to combat the rising threat of deepfakes by providing a reliable detection platform that is fast, accurate, and easy to use. Upload a video or image, and let the model analyze the content in real time.
+    </p>
+    <p>
+      Built using Python, Flask, TensorFlow, OpenCV, and modern UI design principles.
+    </p>
+  </div>
+
+</body>
+</html>

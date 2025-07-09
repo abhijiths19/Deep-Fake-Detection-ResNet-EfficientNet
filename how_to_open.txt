@@ -1,0 +1,9 @@
+use anaconda terminal
+
+conda env
+
+path (for easy access): cd /d G:\GithubUpload\Deep_Fake_ResNet_and_EfficientNet
+
+conda activate leaf_disease
+
+python app.py

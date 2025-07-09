@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deepfake Image Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: #121212;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      color: #00e5ff !important;
+    }
+
+    .main-container {
+      padding: 60px 15px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card-upload {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-custom {
+      background-color: #00e5ff;
+      color: #000;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #00bcd4;
+      transform: scale(1.05);
+    }
+
+    .result-text {
+      margin-top: 20px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .result-image {
+      margin-top: 25px;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 2px solid #00e5ff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('index') }}">DeepfakeDetector</a>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index2') }}">Upload Video</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index3') }}">Upload Image</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index5') }}">Quiz</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <div class="main-container">
+    <div class="card card-upload text-white">
+      <h2 class="mb-4">Upload an Image for Deepfake Detection</h2>
+      <form method="POST" enctype="multipart/form-data" action="{{ url_for('index3') }}">
+        <div class="mb-3">
+          <input type="file" name="file" accept="image/*" class="form-control form-control-lg" required />
+        </div>
+        <button type="submit" class="btn btn-custom btn-lg">Analyze Image</button>
+      </form>
+
+      <!-- Show Result -->
+      {% if rslt %}
+        <div class="result-text">Prediction: <strong>{{ rslt }}</strong></div>
+        <img src="{{ url_for('static', filename='rslt.png') }}" class="result-image mt-3" alt="Result Image">
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>
